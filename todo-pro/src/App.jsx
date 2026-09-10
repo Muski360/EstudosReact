@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 function TaskSummary() {
   const [tasks, setTasks] = useState([
@@ -7,8 +8,7 @@ function TaskSummary() {
     { id: 3, title: "Beber 3L de água", completed: false },
   ]);
 
-  const completedCount = tasks.filter((task) =>
-    task.completed).length;
+  const completedCount = tasks.filter((task) => task.completed).length;
 
   function toggleTask(taskId) {
     setTasks((currentTasks) =>
@@ -19,12 +19,16 @@ function TaskSummary() {
   }
 
   return (
-    <section>
-      <p>Concluídas: {completedCount}</p>
-      <ul>
+    <section className="todo-card">
+      <p className="summary">Concluídas: {completedCount}</p>
+
+      <ul className="todo-list">
         {tasks.map((task) => (
-          <li key={task.id}>
-            <span>{task.title}</span>
+          <li
+            key={task.id}
+            className={task.completed ? "todo-item completed" : "todo-item pending"}
+          >
+            <span className="task-title">{task.title}</span>
             <button type="button" onClick={() => toggleTask(task.id)}>
               {task.completed ? "Reabrir" : "Concluir"}
             </button>
@@ -35,23 +39,17 @@ function TaskSummary() {
   );
 }
 
-
-
 function App() {
   return (
-    <main>
-      <header>
+    <main className="app-shell">
+      <header className="app-header">
         <h1>To-Do Pro - Muski360</h1>
         <p>Organize suas tarefas em um só lugar.</p>
       </header>
 
-      <section>
-        <h2>Minhas tarefas</h2>
-        <p>Nenhuma tarefa foi adicionada.</p>
-        <button type="button">Adicionar tarefa</button>
-      </section>
+      <TaskSummary />
     </main>
-  )
+  );
 }
 
 export default App;
