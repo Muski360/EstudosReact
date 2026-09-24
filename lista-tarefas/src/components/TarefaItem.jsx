@@ -1,7 +1,15 @@
 import TarefaAction from "./TarefaAction";
 
 // Renderiza o cartão individual  de cada tarefa da lista de tarefas com valores personalizados
-function TarefaItem({ titulo, descricao, prioridade = "Média", concluida = false }) {
+function TarefaItem({
+    id,
+    titulo,
+    descricao,
+    prioridade = "Média",
+    concluida = false,
+    mudar,
+    remover,
+}) {
     const statusLabel = concluida ? "Concluida" : "Pendente";
 
     return (
@@ -12,8 +20,8 @@ function TarefaItem({ titulo, descricao, prioridade = "Média", concluida = fals
             </header>
             <p className="tarefa-desc">{descricao}</p>
             <TarefaAction
-                aoCompletar={() => handleMudar(id)}
-                aoRemover={() => handleRemover(id)} />
+                aoCompletar={() => mudar(id)}
+                aoRemover={() => remover(id)} />
 
             <footer className="tarefa-footer">
                 <small>Status: {statusLabel}</small>
